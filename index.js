@@ -1,16 +1,14 @@
-const express      = require('express');
-const app          = express();
-const dbConnection = require('./config/config')
-const PORT         = 8080;
+const express = require('express');
+const app = express();
+const PORT = 8080;
+const { dbConnection } = require('./config/config');
+const routes = require('./routes');
 
+app.use(express.json());
+
+app.use('/', routes);
 
 dbConnection();
 
-app.get(('/'), (req, res) => {
-    res.send("Funciona!!")
-});
-
-app.listen(PORT, () => {
-    console.log(`El servidor está escuchando en el puerto http://localhost:${PORT}`)
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
